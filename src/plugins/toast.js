@@ -3,7 +3,7 @@ import 'vue3-toastify/dist/index.css';
 
 
 export default {
-  install: (app, options) => {
+  install: (app) => {
     app.use(Vue3Toastify, {
       autoClose: 3000, // tempo em milissegundos
       position: 'top-right' // posição das notificações

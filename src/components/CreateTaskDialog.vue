@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="show" max-width="400">
-    <template v-slot:activator="{ on }">
+    <template v-slot:activator="">
       <v-btn v-if="taskTitle === 'A FAZER'" v-on="{ click: toggleModal }" icon color="white">
         <v-icon>mdi-pencil-plus</v-icon>
       </v-btn>

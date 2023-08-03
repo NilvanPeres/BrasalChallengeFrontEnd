@@ -24,6 +24,9 @@
           </v-btn>
         </div>
       </template>
+      <template v-slot:item.body="{ item }">
+        <td :class="{ 'task-done': item.raw.status === 'DONE' }">{{ item.raw.body }}</td>
+      </template>
     </v-data-table>
     <DeleteTaskDialog @delete-task="deleteTask" ref="deleteConfirmation" />
     <EditTaskDialog @edit-task-text="editTaskText" :taskToEdit="taskToEdit" ref="editDialog" />
@@ -80,3 +83,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  .task-done {
+    text-decoration: line-through;
+  }
+</style>
