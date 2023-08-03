@@ -4,6 +4,10 @@
       label="Buscar tarefa"
       v-model="searchText"
       clearable
+      color="primary"
+      dense
+      variant=outlined
+      background-color="white"
       @click:clear="searchText = ''"
     />
     <v-row>

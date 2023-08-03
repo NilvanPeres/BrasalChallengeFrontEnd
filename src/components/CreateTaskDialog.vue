@@ -8,7 +8,7 @@
     <v-card>
       <v-card-title>Adicionar Nova Tarefa</v-card-title>
       <v-card-text>
-        <v-text-field v-model="newTask" label="Nova Tarefa"></v-text-field>
+        <v-text-field variant="underlined" v-model="newTask" label="Nova Tarefa"></v-text-field>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -45,3 +45,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  .v-icon:hover {
+    cursor: pointer;
+    color: #2196f3; /* Cor do ícone ao passar o mouse */
+  } 
+  .v-btn:hover {
+    background-color: #f2f2f2; /* Cor de fundo ao passar o mouse */
+  }
+</style>

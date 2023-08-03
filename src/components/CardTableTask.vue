@@ -3,16 +3,17 @@
     <v-data-table
       :headers="headers"
       :items="tasks"
+      hide-headers
       :items-per-page="5"
+      :items-per-page-options="[]"
       :footer-props="{
-        itemsPerPageOptions: [5],
         showFirstLastPage: true,
         firstIcon: 'mdi-arrow-collapse-left',
         lastIcon: 'mdi-arrow-collapse-right',
       }"
     >
       <template v-slot:item.actions="{ item }">
-        <div class="d-flex align-center">
+        <div class="d-flex justify-end">
           <v-icon small class="mr-2" @click="showEditDialog(item.raw)">
             mdi-pencil
           </v-icon>
@@ -87,5 +88,13 @@ export default {
 <style scoped>
   .task-done {
     text-decoration: line-through;
+    color: #9e9e9e;
+  }
+  .v-icon:hover {
+    cursor: pointer;
+    color: #2196f3; /* Cor do ícone ao passar o mouse */
+  } 
+  .v-btn:hover {
+    background-color: #f2f2f2; /* Cor de fundo ao passar o mouse */
   }
 </style>
