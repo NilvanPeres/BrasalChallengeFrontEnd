@@ -1,5 +1,11 @@
 <template>
   <v-container>
+    <v-text-field
+      label="Buscar tarefa"
+      v-model="searchText"
+      clearable
+      @click:clear="searchText = ''"
+    />
     <v-row>
       <v-col col="12" md="6">
         <CardTaskCategory 
@@ -7,7 +13,7 @@
           taskTitle="A FAZER"
           taskCategoryColor="primary"
           iconTaskStatus="mdi-check"
-          :tasks="incompleteTasks"
+          :tasks="filteredIncompleteTasks"
           @update-task="updateTaskStatus"
           @add-task="addTask"
           @delete-task="deleteTask"
@@ -20,7 +26,7 @@
           taskTitle="FEITO" 
           taskCategoryColor="success"
           iconTaskStatus="mdi-undo"
-          :tasks="completeTasks"
+          :tasks="filteredCompleteTasks"
           @update-task="updateTaskStatus"
           @delete-task="deleteTask"
           @edit-task-text="editTaskText"
@@ -43,16 +49,26 @@ export default {
   data() {
     return {
       tasks: [],
+      searchText: '',
     };
   },
   computed: {
-    incompleteTasks() {
-      return this.tasks.filter(task => task.status === 'TODO');
+    filteredIncompleteTasks() {
+      if (this.searchText === '') {
+        return this.tasks.filter(task => task.status === 'TODO');
+      } else {
+        return this.tasks.filter(task => task.status === 'TODO' && task.body.includes(this.searchText));
+      }
     },
-    completeTasks() {
-      return this.tasks.filter(task => task.status === 'DONE');
+    filteredCompleteTasks() {
+      if (this.searchText === '') {
+        return this.tasks.filter(task => task.status === 'DONE');
+      } else {
+        return this.tasks.filter(task => task.status === 'DONE' && task.body.includes(this.searchText));
+      }
     }
   },
+
   mounted () {
     this.getAllTasks();
   },
