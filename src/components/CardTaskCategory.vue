@@ -6,7 +6,7 @@
   >
     <v-toolbar :color="taskCategoryColor" dense flat>
       <v-icon class="pa-6">{{ iconTaskCategory }}</v-icon>
-      <v-toolbar-title>{{ taskTitle }}</v-toolbar-title>
+      <v-toolbar-title class="text-xs-h7 text-md-h6">{{ taskTitle }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <CreateTaskDialog :taskTitle="taskTitle" @add-task="addTask"/>
     </v-toolbar>

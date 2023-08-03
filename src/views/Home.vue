@@ -14,7 +14,7 @@
       <v-col col="12" md="6">
         <CardTaskCategory 
           iconTaskCategory="mdi-format-list-checks" 
-          taskTitle="A FAZER"
+          taskTitle="POR FAZER"
           taskCategoryColor="primary"
           iconTaskStatus="mdi-check"
           :tasks="filteredIncompleteTasks"

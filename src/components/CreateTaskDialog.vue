@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="show" max-width="400">
     <template v-slot:activator="">
-      <v-btn v-if="taskTitle === 'A FAZER'" v-on="{ click: toggleModal }" icon color="white">
+      <v-btn v-if="taskTitle === 'POR FAZER'" v-on="{ click: toggleModal }" icon color="white">
         <v-icon>mdi-pencil-plus</v-icon>
       </v-btn>
     </template>
@@ -24,7 +24,7 @@ export default {
   props: {
     taskTitle: {
       type: String,
-      required: true,
+      required: false,
     },
   },
   data() {

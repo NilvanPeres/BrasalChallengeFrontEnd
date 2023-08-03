@@ -42,7 +42,7 @@ export default {
   props: {
     taskToEdit: {
       type: Object,
-      required: true,
+      default: null,
     },
   },
 };

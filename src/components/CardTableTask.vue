@@ -74,7 +74,6 @@ export default {
     },
     deleteTask(task) {
       if (task) {
-        console.log('Tarefa a ser excluída:', task);
         this.$emit('delete-task', task);
       }
     },
