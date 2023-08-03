@@ -8,25 +8,31 @@
       <v-icon class="pa-6">{{ iconTaskCategory }}</v-icon>
       <v-toolbar-title>{{ taskTitle }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon color="white" v-if="taskTitle === 'A FAZER' ">
-        <v-icon>mdi-pencil-plus</v-icon>
-      </v-btn>
+      <CreateTaskDialog :taskTitle="taskTitle" @add-task="addTask"/>
     </v-toolbar>
     <v-card-text>
       <CardTableTask 
         :iconTaskStatus="iconTaskStatus" 
         :tasks="tasks" 
-        @update-task="updateTaskStatus" />
+        @update-task="updateTaskStatus" 
+        @delete-task="deleteTask"
+        @edit-task-text="editTaskText"
+      />
+
     </v-card-text>
   </v-card>
 </template>
 
 <script>
+
 import CardTableTask from '@/components/CardTableTask.vue';
+import CreateTaskDialog from '@/components/CreateTaskDialog.vue';
+
 
 export default {
   components: {
     CardTableTask,
+    CreateTaskDialog,
   },
   props: {
     iconTaskCategory: {
@@ -50,10 +56,22 @@ export default {
       required: true,
     }
   },
+  data () {
+    return {
+    };
+  },
   methods: {
     updateTaskStatus(updatedTaskStatus) {
-      console.log("Chamou o método updateTaskStatus no componente CardColumn.vue")
       this.$emit('update-task', updatedTaskStatus);
+    },
+    addTask(newTaskText) {
+      this.$emit('add-task', newTaskText);
+    },
+    deleteTask(task) {
+      this.$emit('delete-task', task);
+    },
+    editTaskText(task) {
+      this.$emit('edit-task-text', task);
     }
   }
 };

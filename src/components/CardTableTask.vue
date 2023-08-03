@@ -1,36 +1,45 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="tasks"
-    :items-per-page="5"
-    :footer-props="{
-      itemsPerPageOptions: [5],
-      showFirstLastPage: true,
-      firstIcon: 'mdi-arrow-collapse-left',
-      lastIcon: 'mdi-arrow-collapse-right',
-    }"
-  >
-    <template v-slot:item.actions="{ item }">
-      <div class="d-flex align-center">
-        <v-icon small class="mr-2" @click="editItem(item.raw)">
-          mdi-pencil
-        </v-icon>
-        <v-icon small class="mr-2" @click="deleteItem(item.raw)">
-          mdi-delete
-        </v-icon>
-        <v-btn icon size="tiny" color="white" class="mr-2"  @click="$emit('update-task', item.raw)">
-          <v-icon>{{ iconTaskStatus }}</v-icon>
-        </v-btn>
-      </div>
-    </template>
-  </v-data-table>
+  <div>
+    <v-data-table
+      :headers="headers"
+      :items="tasks"
+      :items-per-page="5"
+      :footer-props="{
+        itemsPerPageOptions: [5],
+        showFirstLastPage: true,
+        firstIcon: 'mdi-arrow-collapse-left',
+        lastIcon: 'mdi-arrow-collapse-right',
+      }"
+    >
+      <template v-slot:item.actions="{ item }">
+        <div class="d-flex align-center">
+          <v-icon small class="mr-2" @click="showEditDialog(item.raw)">
+            mdi-pencil
+          </v-icon>
+          <v-icon small class="mr-2" @click="showDeleteConfirmation(item.raw)">
+            mdi-delete
+          </v-icon>
+          <v-btn icon size="tiny" color="white" class="mr-2" @click="$emit('update-task', item.raw)">
+            <v-icon>{{ iconTaskStatus }}</v-icon>
+          </v-btn>
+        </div>
+      </template>
+    </v-data-table>
+    <DeleteTaskDialog @delete-task="deleteTask" ref="deleteConfirmation" />
+    <EditTaskDialog @edit-task-text="editTaskText" :taskToEdit="taskToEdit" ref="editDialog" />
+  </div>
 </template>
 
 <script>
+import DeleteTaskDialog from '@/components/DeleteTaskDialog.vue';
+import EditTaskDialog from '@/components/EditTaskDialog.vue';
 import { VDataTable } from 'vuetify/lib/labs/components.mjs';
+
 export default {
   components: {
     VDataTable,
+    DeleteTaskDialog,
+    EditTaskDialog,
   },
   props: {
     tasks: {
@@ -45,23 +54,28 @@ export default {
   data() {
     return {
       headers: [
-        { text: 'Tarefa', key: 'task' },
+        { text: 'Tarefa', key: 'body' },
         { text: 'Ações', key: 'actions', sortable: false },
       ],
-
+      taskToEdit: null,
     };
   },
-  mounted() {
-    console.log(this.tasks);
-  },
   methods: {
-    editItem(item) {
-      console.log(item);
-      // lógica para editar a tarefa
+    showEditDialog(task) {
+      this.taskToEdit = task;
+      this.$refs.editDialog.openDialog(task);
     },
-    deleteItem(item) {
-      console.log(item);
-      // lógica para excluir a tarefa
+    showDeleteConfirmation(task) {
+      this.$refs.deleteConfirmation.openConfirmation(task);
+    },
+    deleteTask(task) {
+      if (task) {
+        console.log('Tarefa a ser excluída:', task);
+        this.$emit('delete-task', task);
+      }
+    },
+    editTaskText(updatedTask) {
+      this.$emit('edit-task-text', updatedTask);
     },
   },
 };
