@@ -3,7 +3,7 @@
     <v-card>
       <v-card-title>Editar Tarefa</v-card-title>
       <v-card-text>
-        <v-text-field v-model="editedTask" label="Tarefa"></v-text-field>
+        <v-text-field hide-details="auto" v-model="editedTask" label="Tarefa"></v-text-field>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>

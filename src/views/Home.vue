@@ -1,5 +1,5 @@
 <template>
-  <v-container >
+  <v-container>
     <v-row>
       <v-col col="12" md="6">
         <CardTaskCategory 
@@ -34,6 +34,7 @@
 import CardTaskCategory from '@/components/CardTaskCategory.vue';
 import tasksService from '@/services/tasks.js';
 
+import { toast } from 'vue3-toastify'
 
 export default {
   components: {
@@ -60,7 +61,11 @@ export default {
       const index = this.tasks.findIndex(task => task === updatedTaskStatus);
       if (index !== -1) {
         this.tasks[index].status = this.tasks[index].status === 'TODO' ? 'DONE' : 'TODO';
-        tasksService.updateTask(this.tasks[index]._id, this.tasks[index]);
+        tasksService.updateTask(this.tasks[index]._id, this.tasks[index]).then(() => {
+          toast.success(`Tarefa '${this.tasks[index].body}' movida de categoria !`);
+        }).catch(error => {
+          toast.error('Erro ao atualizar tarefa: ' + error.message);
+        });
       }
     },
     async getAllTasks () {
@@ -74,8 +79,10 @@ export default {
     async addTask(newTaskText) {
       try {
         const response = await tasksService.createTask({ body: newTaskText, status: 'TODO' });
-        this.tasks.push(response.data);
+        if (response) this.tasks.push(response.data);
+        toast.success(`Tarefa '${newTaskText}' adicionada com sucesso!`);
       } catch (error) {
+        toast.error('Erro ao adicionar tarefa: ' + error.message)
         console.log(error);
       }
     },
@@ -86,7 +93,9 @@ export default {
         if (index !== -1) {
           this.tasks.splice(index, 1);
         }
+        toast.success(`Tarefa '${task.body}' removida com sucesso !`);
       } catch (error) {
+        toast.error('Erro ao excluir tarefa: ' + error.message)
         console.log(error);
       }
     },
@@ -94,10 +103,12 @@ export default {
       try {
         await tasksService.updateTask(task._id, task);
         this.getAllTasks();
+        toast.success('Tarefa editada com sucesso!');
       } catch (error) {
         console.log(error);
+        toast.error('Erro ao editar tarefa: ' + error.message);
       }
-    }
+    },
   }
 };
 </script>
