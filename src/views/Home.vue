@@ -99,11 +99,18 @@ export default {
     async addTask(newTaskText) {
       try {
         const response = await tasksService.createTask({ body: newTaskText, status: 'TODO' });
-        if (response) this.tasks.push(response.data);
-        toast.success(`Tarefa '${newTaskText}' adicionada com sucesso!`);
+        if (response.status === 201) {
+          this.tasks.push(response.data);
+          toast.success(`Tarefa '${newTaskText}' adicionada com sucesso!`);
+        } else {
+          toast.error('Erro ao adicionar tarefa. Por favor, tente novamente mais tarde.');
+        }
       } catch (error) {
-        toast.error('Erro ao adicionar tarefa: ' + error.message)
-        console.log(error);
+        if (error.response && error.response.status === 409) {
+          toast.error('Já existe uma tarefa com essa descrição');
+        } else {
+          toast.error('Erro ao adicionar tarefa: ' + error.message);
+        }
       }
     },
     async deleteTask(task) {
