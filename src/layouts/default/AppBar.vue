@@ -4,7 +4,6 @@
       <v-list-subheader>Ações</v-list-subheader>
       <v-list-item prepend-icon="mdi-plus">Adicionar tarefa</v-list-item>
     </v-list>
-    <CreateTaskDialog />
   </v-navigation-drawer>
   <v-app-bar flat class="border-b" color="black">
     <v-app-bar-nav-icon @click="isDrawerOpen = !isDrawerOpen"></v-app-bar-nav-icon>
@@ -20,16 +19,11 @@
 </template>
 
 <script setup>
-import { ref, defineProps, defineEmits, computed } from 'vue';
-import CreateTaskDialog from '@/components/CreateTaskDialog.vue';
+import { ref, computed } from 'vue';
 
 const props = defineProps(['theme']);
 // Declare o evento personalizado usando a opção "emits"
 const emit = defineEmits(['update-theme']);
-
-const components = {
-  CreateTaskDialog, 
-};
 
 const isDrawerOpen = ref(false);
 
