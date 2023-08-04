@@ -1,10 +1,5 @@
 <template>
   <v-dialog v-model="show" max-width="400">
-    <template v-slot:activator="">
-      <v-btn v-if="taskTitle === 'POR FAZER'" v-on="{ click: toggleModal }" icon color="white">
-        <v-icon>mdi-pencil-plus</v-icon>
-      </v-btn>
-    </template>
     <v-card>
       <v-card-title>Adicionar Nova Tarefa</v-card-title>
       <v-card-text>
@@ -34,6 +29,9 @@ export default {
     };
   },
   methods: {
+    openDialog() {
+      this.show = true;
+    },
     saveTask() {
       this.$emit("add-task", this.newTask);
       this.toggleModal();

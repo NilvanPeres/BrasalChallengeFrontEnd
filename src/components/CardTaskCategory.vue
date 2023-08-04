@@ -8,7 +8,9 @@
       <v-icon class="pa-6">{{ iconTaskCategory }}</v-icon>
       <v-toolbar-title class="text-xs-h7 text-md-h6">{{ taskTitle }}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <CreateTaskDialog :taskTitle="taskTitle" @add-task="addTask"/>
+      <v-btn v-if="taskTitle === 'POR FAZER'" @click="openCreateTaskDialog" icon color="white">
+        <v-icon>mdi-pencil-plus</v-icon>
+      </v-btn>
     </v-toolbar>
     <v-card-text>
       <CardTableTask 
@@ -18,8 +20,8 @@
         @delete-task="deleteTask"
         @edit-task-text="editTaskText"
       />
-
     </v-card-text>
+    <CreateTaskDialog ref="createTaskDialog" @add-task="addTask" />
   </v-card>
 </template>
 
@@ -72,7 +74,10 @@ export default {
     },
     editTaskText(task) {
       this.$emit('edit-task-text', task);
-    }
+    },
+    openCreateTaskDialog() {
+      this.$refs.createTaskDialog.openDialog();
+    },
   }
 };
 </script>

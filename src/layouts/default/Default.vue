@@ -19,9 +19,7 @@ export default {
     const theme = useTheme();
 
     const toggleTheme = () => {
-      console.log('Tema alternado')
       theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark' 
-
     };
 
     return {
@@ -33,10 +31,8 @@ export default {
 </script>
 
 <style>
-.v-data-table-footer__items-per-page {
+.v-data-table-footer__items-per-page, th  {
   display: none !important;
 }
-th {
-  display: none !important;
-}
+
 </style>
