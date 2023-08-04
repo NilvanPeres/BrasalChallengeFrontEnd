@@ -1,56 +1,25 @@
-# base
+# BrasalChallengeFrontEnd
 
-## Project setup
+## Como rodar o projeto ?
 
-```
-# yarn
-yarn
+1. Clone o projeto via ssh/https ou baixe e extrai o arquivo .zip
+2. Baixe as depedências do projeto com 
 
-# npm
-npm install
+``` npm install```
 
-# pnpm
-pnpm install
-```
+    Atenção: Versão antigas do node (14-) podem apresentar alguma falha ao baixar as depedências do projeto
 
-### Compiles and hot-reloads for development
+3. Execute a aplicação com
 
-```
-# yarn
-yarn dev
+``` npm run dev```
 
-# npm
-npm run dev
+4. A aplicação pode ser acessada no localhost de seu navegador: localhost:3000
 
-# pnpm
-pnpm dev
-```
+## Protótipo de baixa fidelidade
 
-### Compiles and minifies for production
+![Screenshot from 2023-08-04 11-19-40](https://github.com/NilvanPeres/BrasalChallengeBackEnd/assets/54211866/5201c477-6fd2-4320-b72d-fd703bceb6df)
 
-```
-# yarn
-yarn build
 
-# npm
-npm run build
-
-# pnpm
-pnpm build
-```
-
-### Lints and fixes files
-
-```
-# yarn
-yarn lint
-
-# npm
-npm run lint
-
-# pnpm
-pnpm lint
-```
 
 ### Customize configuration
 
