@@ -72,9 +72,14 @@ export default {
       }
     }
   },
-
+  created () {
+    this.emitter.on('add-task', this.addTask)
+  },
   mounted () {
     this.getAllTasks();
+  },
+  beforeUnmount () {
+    this.emitter.off('add-task', this.addTask)
   },
   methods: {
     updateTaskStatus(updatedTaskStatus) {
@@ -91,24 +96,29 @@ export default {
     async getAllTasks () {
       try {
         const response = await tasksService.getTasks();
-        this.tasks = response.data;
+        this.tasks = response.data.reverse();
       } catch (error) {
-        console.log(error);
+        toast.error('Erro ao carregar tarefas: ' + error.message);
       }
     },
     async addTask(newTaskText) {
       try {
         const response = await tasksService.createTask({ body: newTaskText, status: 'TODO' });
         if (response.status === 201) {
-          this.tasks.push(response.data);
+          this.tasks.unshift(response.data);
           toast.success(`Tarefa '${newTaskText}' adicionada com sucesso!`);
         } else {
           toast.error('Erro ao adicionar tarefa. Por favor, tente novamente mais tarde.');
         }
       } catch (error) {
-        if (error.response && error.response.status === 409) {
+        console.log("error: " + error)
+        if (error?.response?.status === 409) {
           toast.error('Já existe uma tarefa com essa descrição');
-        } else {
+        } 
+        else if (error?.response?.data?.errors) {
+          toast.error(error.response.data.errors[0].msg)
+        }
+        else {
           toast.error('Erro ao adicionar tarefa: ' + error.message);
         }
       }
@@ -123,7 +133,6 @@ export default {
         toast.success(`Tarefa '${task.body}' removida com sucesso !`);
       } catch (error) {
         toast.error('Erro ao excluir tarefa: ' + error.message)
-        console.log(error);
       }
     },
     async editTaskText(task) {
@@ -132,8 +141,10 @@ export default {
         this.getAllTasks();
         toast.success('Tarefa editada com sucesso!');
       } catch (error) {
-        console.log(error);
-        toast.error('Erro ao editar tarefa: ' + error.message);
+        if (!error?.response?.data?.errors) {
+          toast.error('Erro ao editar tarefa: ' + error.message);
+        }
+        toast.error(error.response.data.errors[0].msg)
       }
     },
   }

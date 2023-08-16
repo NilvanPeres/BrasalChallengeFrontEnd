@@ -2,7 +2,7 @@
   <v-navigation-drawer v-model="isDrawerOpen">
     <v-list>
       <v-list-subheader>Ações</v-list-subheader>
-      <v-list-item prepend-icon="mdi-plus">Adicionar tarefa</v-list-item>
+      <v-list-item @click="openCreateTaskDialog" prepend-icon="mdi-plus">Adicionar tarefa</v-list-item>
     </v-list>
   </v-navigation-drawer>
   <v-app-bar flat class="border-b" color="black">
@@ -16,22 +16,41 @@
       </v-btn>
     </template>
   </v-app-bar>
+  <CreateTaskDialog ref="createTaskDialog" @add-task="addTask" />
 </template>
 
-<script setup>
-import { ref, computed } from 'vue';
+<script>
+import CreateTaskDialog from '@/components/CreateTaskDialog.vue';
 
-const props = defineProps(['theme']);
-// Declare o evento personalizado usando a opção "emits"
-const emit = defineEmits(['update-theme']);
 
-const isDrawerOpen = ref(false);
-
-const toggleTheme = () => {
-  emit('update-theme', !props.theme.dark);
+export default {
+  components: {
+    CreateTaskDialog,
+  },
+  props: {
+    theme: Object,
+  },
+  emits: ['update-theme'],
+  data() {
+    return {
+      isDrawerOpen: false,
+    };
+  },
+  computed: {
+    iconName() {
+      return this.theme.global.current.value.dark ? 'mdi-weather-night' : 'mdi-weather-sunny';
+    },
+  },
+  methods: {
+    openCreateTaskDialog() {
+      this.$refs.createTaskDialog.openDialog();
+    },
+    addTask(newTaskText) {
+      this.emitter.emit('add-task', newTaskText);
+    },
+    toggleTheme() {
+      this.$emit('update-theme', !this.theme.dark);
+    },
+  },
 };
-
-const iconName = computed(() => {
-  return props.theme.global.current.value.dark ? 'mdi-weather-night' : 'mdi-weather-sunny';
-});
 </script>
