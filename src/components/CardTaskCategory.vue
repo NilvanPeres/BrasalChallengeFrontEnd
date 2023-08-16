@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="mx-auto"
+    class="mx-auto elevation-0 border"
     max-width="350"
     min-width="200"
   >
@@ -12,7 +12,7 @@
         <v-icon>mdi-pencil-plus</v-icon>
       </v-btn>
     </v-toolbar>
-    <v-card-text>
+    <v-card-text class=text-break>
       <CardTableTask 
         :iconTaskStatus="iconTaskStatus" 
         :tasks="tasks" 
