@@ -1,26 +1,24 @@
-# BrasalChallengeFrontEnd
+# To-Do FrontEnd
 
-## Como rodar o projeto ?
+## How to run the project?
 
-1. Clone o projeto via ssh/https ou baixe e extrai o arquivo .zip
-2. Baixe as depedências do projeto com 
+1. Clone it via ssh/https or download the project as a zip file and extract it.
+2. Install dependencies
 
-``` npm install```
+```npm install```
 
-    Atenção: Versão antigas do node (14-) podem apresentar alguma falha ao baixar as depedências do projeto
+    Note: Node versions below 14 may present some errors while downloading the dependencies
 
-3. Execute a aplicação com
+3. Run the command to start the server
 
-``` npm run dev```
+```npm run dev```
 
-4. A aplicação pode ser acessada no localhost de seu navegador: localhost:3000
+4. The application can be accessed at: localhost:3000
 
-## Protótipo de baixa fidelidade
+## Low Fidelity Prototype
 
-![Screenshot from 2023-08-04 11-19-40](https://github.com/NilvanPeres/BrasalChallengeBackEnd/assets/54211866/5201c477-6fd2-4320-b72d-fd703bceb6df)
+![Screenshot from 2023-08-04 11-19-40](https://github.com/NilvanPeres/ToDoAppFrontEnd/raw/main/assets/54211866/a042b271-0413-4b1e-bdd6-7e44409eb161.png)
 
-
-
-### Customize configuration
+### Customize Configuration
 
 See [Configuration Reference](https://vitejs.dev/config/).
