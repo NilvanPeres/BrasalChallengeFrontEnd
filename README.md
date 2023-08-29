@@ -17,7 +17,7 @@
 
 ## Low Fidelity Prototype
 
-![Screenshot from 2023-08-04 11-19-40](https://github.com/NilvanPeres/ToDoAppFrontEnd/raw/main/assets/54211866/a042b271-0413-4b1e-bdd6-7e44409eb161.png)
+![Prototype](./public/POC.png)
 
 ### Customize Configuration
 
